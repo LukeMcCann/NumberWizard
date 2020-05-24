@@ -8,6 +8,8 @@ public class NumberWizard : MonoBehaviour {
     [SerializeField] int min;
     [SerializeField] TextMeshProUGUI guessText;
 
+    List<int> usedValues = new List<int>();
+
     int guess;
 
     // Use this for initialization
@@ -19,34 +21,28 @@ public class NumberWizard : MonoBehaviour {
     void StartGame()
     {
         NextGuess();
-        UpdateGuessText(guess.ToString());
         max = max + 1;
     }
 
-    public void OnPressHigher() {
-        min = guess;
-        NextGuess();
-    }
-
-    public void OnPressLower() {
-        max = guess;
-        NextGuess();
-    }
     void NextGuess()
     {
-        guess = (max + min) / 2;
+        // guess = (max + min) / 2;
+        guess = Random.Range(min, max);
+        if(usedValues.Contains(guess)) {
+            NextGuess();
+        }
+        UpdateGuessText(guess.ToString());
+        usedValues.Add(guess);
     }
 
-    public void handleHigherButtonClick() {
+    public void HandleHigherButtonClick() {
         min = guess;
         NextGuess();
-        UpdateGuessText(guess.ToString());
     }
 
-    public void handleLowerButtonClick() {
+    public void HandleLowerButtonClick() {
         max = guess;
         NextGuess();
-        UpdateGuessText(guess.ToString());
     }
 
     void UpdateGuessText(string text) {
