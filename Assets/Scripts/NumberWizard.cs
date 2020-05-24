@@ -21,13 +21,12 @@ public class NumberWizard : MonoBehaviour {
     void StartGame()
     {
         NextGuess();
-        max = max + 1;
     }
 
     void NextGuess()
     {
         // guess = (max + min) / 2;
-        guess = Random.Range(min, max);
+        guess = Random.Range(min, max+1);
         if(usedValues.Contains(guess)) {
             NextGuess();
         }
@@ -36,12 +35,12 @@ public class NumberWizard : MonoBehaviour {
     }
 
     public void HandleHigherButtonClick() {
-        min = guess;
+        min = guess+1;
         NextGuess();
     }
 
     public void HandleLowerButtonClick() {
-        max = guess;
+        max = guess-1;
         NextGuess();
     }
 
